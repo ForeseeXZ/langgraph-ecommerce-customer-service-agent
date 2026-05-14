@@ -2,9 +2,18 @@ This project is adapted from:
 
 https://github.com/hminle/langserve-assistant-ui
 
-The upstream project is licensed under the MIT License. The original copyright
-notice and MIT License text are retained in LICENSE.
+This project was also initially developed from a local codebase whose Git
+remote pointed to:
+
+https://github.com/Yonom/assistant-ui-langgraph-fastapi
+
+Both upstream projects are distributed under the MIT License. The original
+copyright notice and MIT License text are retained in LICENSE.
 
 This repository modifies the original project for a Chinese e-commerce
 after-sales customer service demo, including localized frontend copy, mock
 business data, LangGraph tools, and OpenAI-compatible model configuration.
+
+The copyright for the original upstream code remains with its original
+authors. The additional modifications in this repository are attributed to
+ForeseeXZ.

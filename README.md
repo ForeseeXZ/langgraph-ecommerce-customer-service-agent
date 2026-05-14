@@ -144,6 +144,13 @@ npm run dev
 - 增加退货地址查询、优惠补偿说明等常见售后工具
 - 补一个“演示模式数据说明”侧边栏
 
-## 来源
+## 许可与致谢
 
-基于原始项目改造：https://github.com/hminle/langserve-assistant-ui
+本项目基于 MIT License 发布。
+
+原始项目来源：
+
+- https://github.com/hminle/langserve-assistant-ui
+- https://github.com/Yonom/assistant-ui-langgraph-fastapi
+
+原始版权声明保留在 [LICENSE](LICENSE) 中，本项目新增的中文电商售后场景、mock 数据、工具逻辑和界面改造由 ForeseeXZ 维护。更多说明见 [NOTICE](NOTICE)。
