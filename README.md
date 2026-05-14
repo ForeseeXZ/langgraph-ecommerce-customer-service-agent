@@ -1,16 +1,15 @@
-# 天枢售后智能中枢
+# 淘京拼购物智能售后平台
 
-一个面向中文电商售后场景的 AI Agent 课程作业 Demo。项目使用 Next.js + assistant-ui 构建前端工作台，FastAPI + LangGraph 编排后端 Agent，并结合 SQLite 演示数据库与本地 RAG 知识库，模拟“订单事实查询 + 售后政策解释 + 工单处理”的完整闭环。
+这是一个面向中文电商售后场景的 AI Agent 课程作业 Demo。项目使用 Next.js + assistant-ui 构建前端工作台，FastAPI + LangGraph 编排后端 Agent，并结合 SQLite 演示数据库与本地 RAG 知识库，模拟“订单事实查询、售后政策解释、工单创建与进度跟踪”的完整流程。
 
 ## 项目能力
 
-- 订单状态、支付信息、商品明细、物流轨迹查询
-- 商品/SKU 库存、仓库、补货时间查询
-- 退款资格结构化预判断
-- 售后工单创建与流转查询
-- 客户/订单关联工单查询
-- 本地 RAG 售后政策检索，返回 citations
-- 中文电商售后场景演示问题与数据验收脚本
+- 查询订单状态、支付信息、商品明细、物流轨迹
+- 查询商品/SKU 库存、仓库、补货时间
+- 基于订单事实做退款资格预判断
+- 创建售后工单，查询工单流转、退款、换货、补偿记录
+- 通过本地 RAG 知识库检索售后政策、所需凭证、处理时效和例外情况
+- 提供演示数据库生成脚本、RAG 索引构建脚本和验收脚本
 
 ## 技术栈
 
@@ -36,7 +35,7 @@ backend/
 assistant-ui-langgraph-fastapi/
 ├─ backend/
 │  ├─ app/
-│  │  ├─ data/          # schema、数据模型文档、演示问题；SQLite 文件本地生成
+│  │  ├─ data/          # schema、数据模型文档、演示问题；SQLite 文件本地生成或拷贝
 │  │  ├─ langgraph/     # Agent、工具、RAG 检索逻辑
 │  │  └─ rag_docs/      # official + internal Markdown 知识库
 │  └─ scripts/          # 生成数据库、构建 RAG 索引、验收脚本
@@ -54,9 +53,9 @@ assistant-ui-langgraph-fastapi/
 - pnpm 推荐；npm 也可以
 - 一个 OpenAI-compatible Chat Completions 模型接口
 
-## 后端配置
+## 环境变量
 
-在 `backend` 目录创建 `.env` 文件，可参考 `backend/.env.example`：
+后端在 `backend/.env` 中配置模型接口，可参考 `backend/.env.example`：
 
 ```env
 OPENAI_API_KEY=your-openai-compatible-api-key
@@ -65,19 +64,15 @@ OPENAI_MODEL=deepseek-chat
 OPENAI_TEMPERATURE=0.2
 ```
 
-只要服务兼容 OpenAI Chat Completions 风格，一般只需要替换这几个环境变量，不需要改后端代码。
-
-## 前端配置
-
-在 `frontend` 目录创建 `.env.local`，可参考 `frontend/.env.local.example`：
+前端在 `frontend/.env.local` 中配置聊天接口，可参考 `frontend/.env.local.example`：
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8000/api/chat
 ```
 
-如果前后端都使用默认端口，这个值不用改。
+## 运行方式 A：从脚本生成数据
 
-## 首次运行
+适合第一次完整复现项目，或者没有拿到现成 SQLite 文件的情况。
 
 ### 1. 安装后端依赖
 
@@ -92,13 +87,11 @@ poetry install
 poetry run python scripts/generate_demo_db.py
 ```
 
-会生成：
+生成文件：
 
 ```text
 backend/app/data/demo_ecommerce.sqlite
 ```
-
-该文件是本地生成物，已被 `.gitignore` 忽略，不会上传到 GitHub。
 
 ### 3. 构建 RAG 索引
 
@@ -106,20 +99,18 @@ backend/app/data/demo_ecommerce.sqlite
 poetry run python scripts/build_rag_index.py
 ```
 
-会读取：
+该脚本会读取：
 
 ```text
 backend/app/rag_docs/official/
 backend/app/rag_docs/internal/
 ```
 
-并生成：
+生成文件：
 
 ```text
 backend/app/data/rag_index.sqlite
 ```
-
-该文件同样是本地生成物，已被 `.gitignore` 忽略。
 
 ### 4. 验收数据和 RAG
 
@@ -128,9 +119,38 @@ poetry run python scripts/check_demo_db.py
 poetry run python scripts/check_rag.py
 ```
 
-### 5. 启动后端
+## 运行方式 B：直接使用组内共享数据
+
+适合组内成员已经拿到以下文件的情况，可以省略“生成数据库”和“构建 RAG 索引”两个步骤：
+
+```text
+demo_ecommerce.sqlite
+rag_index.sqlite
+```
+
+把这两个文件放到：
+
+```text
+backend/app/data/demo_ecommerce.sqlite
+backend/app/data/rag_index.sqlite
+```
+
+然后只需要安装依赖并启动服务：
 
 ```bash
+cd backend
+poetry install
+poetry run python scripts/check_demo_db.py --skip-tools
+poetry run python scripts/check_rag.py
+poetry run python -m app.server
+```
+
+如果只是快速跑 Demo，也可以先跳过两个验收脚本，直接启动后端。遇到查询失败时，再确认这两个 SQLite 文件是否放在正确目录。
+
+## 启动后端
+
+```bash
+cd backend
 poetry run python -m app.server
 ```
 
@@ -141,7 +161,7 @@ http://localhost:8000
 http://localhost:8000/api/chat
 ```
 
-### 6. 安装并启动前端
+## 启动前端
 
 推荐 pnpm：
 
@@ -179,7 +199,7 @@ SKU 编号 377 现在还有库存吗，什么时候补货？
 帮我为订单 SO20260514000026 创建一个质量问题工单，耳机右耳有杂音，手机号是 13800001234
 ```
 
-更多覆盖全部工具链路的测试问题见：
+更多测试问题见：
 
 ```text
 backend/app/data/DEMO_QUERIES.md
@@ -201,15 +221,15 @@ backend/app/data/DEMO_QUERIES.md
 
 推荐调用逻辑：
 
-- 用户问订单、物流、支付、商品明细：查 SQLite。
-- 用户问库存、补货：查 SQLite。
-- 用户问“这个订单能不能退”：先做结构化资格判断，再检索 RAG 政策。
-- 用户问凭证、规则、时效、例外情况：走 `query_refund_policy_rag`。
-- 用户要创建售后：信息齐全后创建工单。
+- 订单、物流、支付、商品明细：查询 SQLite。
+- 库存、补货：查询 SQLite。
+- “这个订单能不能退”：先做结构化资格判断，再检索 RAG 政策。
+- 凭证、规则、时效、例外情况：走 `query_refund_policy_rag`。
+- 创建售后：信息齐全后创建工单。
 
 ## 数据与 RAG 说明
 
-SQLite 数据库由脚本生成，模拟：
+SQLite 数据库模拟：
 
 - 5,000 名客户
 - 800+ 商品 SPU
@@ -224,7 +244,7 @@ RAG 第一阶段只使用本地 Markdown：
 - `backend/app/rag_docs/official/`：官方法规/规则摘要
 - `backend/app/rag_docs/internal/`：项目内部售后 SOP
 
-不会访问外部搜索，也不会依赖在线数据集。
+当前 RAG 不访问外部搜索，也不依赖在线数据集。
 
 ## GitHub 上传说明
 
@@ -239,20 +259,7 @@ backend/.env
 frontend/.env.local
 ```
 
-所以你本地可以保留 `node_modules`、`.next`、SQLite 数据库和环境变量文件；正常 `git add .` 不会把它们上传。
-
-如果 clone 到新机器，需要重新执行：
-
-```bash
-cd backend
-poetry install
-poetry run python scripts/generate_demo_db.py
-poetry run python scripts/build_rag_index.py
-
-cd ../frontend
-pnpm install
-pnpm dev
-```
+所以本地可以保留依赖目录、构建缓存、SQLite 数据库和环境变量文件；正常提交不会上传这些内容。组内共享 SQLite 文件时，建议单独通过网盘、压缩包或课程平台附件传递。
 
 ## 许可与致谢
 

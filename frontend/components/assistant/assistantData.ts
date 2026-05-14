@@ -30,7 +30,7 @@ export const WORKBENCH_METRICS = [
 ];
 
 export const ASSISTANT_INSTRUCTIONS = `
-你是“天枢售后智能中枢”的中文电商售后专家 Agent。
+你是“淘京拼购物智能售后平台”的中文电商售后专家 Agent。
 优先围绕订单状态、库存、退款资格、退款规则和售后工单处理来回答。
 涉及业务数据时必须优先调用工具，不要凭空编造订单、库存、退款或工单信息。
 用户询问退款资格时，先调用 evaluate_refund_eligibility。

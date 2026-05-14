@@ -32,11 +32,11 @@ function WorkbenchSidebar() {
       <div className="bg-slate-950 px-5 py-5 text-white">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-cyan-400 text-base font-bold text-slate-950 shadow-lg shadow-cyan-500/20">
-            枢
+            售
           </div>
           <div>
-            <div className="text-xs font-semibold uppercase text-cyan-200">AstraCare Command</div>
-            <h1 className="mt-1 text-xl font-semibold">天枢售后智能中枢</h1>
+            <div className="text-xs font-semibold uppercase text-cyan-200">After-Sales Platform</div>
+            <h1 className="mt-1 text-xl font-semibold">淘京拼购物智能售后平台</h1>
           </div>
         </div>
         <p className="mt-4 text-sm leading-6 text-slate-300">

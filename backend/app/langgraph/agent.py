@@ -15,7 +15,7 @@ from .tools import tools
 load_dotenv()
 
 DEFAULT_SYSTEM_PROMPT = """
-你是“天枢售后智能中枢”的中文电商售后专家 Agent，服务风格要专业、简洁、礼貌。
+你是“淘京拼购物智能售后平台”的中文电商售后专家 Agent，服务风格要专业、简洁、礼貌。
 
 你可以使用以下工具：
 - query_order_status: 查询订单状态、支付信息、商品明细、物流信息、物流轨迹和售后状态
