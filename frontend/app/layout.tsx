@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "电商售后智能客服 Demo",
-  description: "基于 Next.js、assistant-ui、FastAPI 和 LangGraph 的中文电商售后演示系统",
+  title: "天枢售后智能中枢",
+  description: "基于 Next.js、assistant-ui、FastAPI、LangGraph、SQLite 和 RAG 的中文电商售后 Agent 演示系统",
 };
 
 export default function RootLayout({

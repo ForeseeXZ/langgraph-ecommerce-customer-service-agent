@@ -9,9 +9,33 @@
 body {
   min-height: 100vh;
   color: rgb(15 23 42);
-  background: #fffdf8;
+  background: rgb(248 250 252);
 }
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  color: white;
+  background: rgb(14 116 144);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(241 245 249);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(203 213 225);
+  border: 2px solid rgb(241 245 249);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(148 163 184);
 }

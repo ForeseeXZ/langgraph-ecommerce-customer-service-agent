@@ -3,3 +3,20 @@
 ./backend/.env
 ./frontend/.env.local
 软件工程概要设计文档草稿.md
+
+# Frontend generated artifacts
+frontend/node_modules/
+frontend/.next/
+frontend/.corepack/
+frontend/out/
+frontend/build/
+frontend/next-env.d.ts
+frontend/package-lock.json
+frontend/next-dev*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Backend generated demo data
+backend/app/data/*.sqlite
+backend/app/data/*.sqlite-*
