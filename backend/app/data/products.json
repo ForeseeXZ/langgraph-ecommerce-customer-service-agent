@@ -1,0 +1,94 @@
+[
+  {
+    "product_id": "SKU1001",
+    "product_name": "轻薄防晒外套",
+    "category": "服饰",
+    "brand": "Orange Style",
+    "price": 199.0,
+    "status": "在售",
+    "available_stock": 42,
+    "locked_stock": 3,
+    "safety_stock": 10,
+    "warehouse": "上海服饰一仓",
+    "restock_eta": "2026-04-25",
+    "specs": {
+      "color_options": ["米白", "浅灰", "薄荷绿"],
+      "size_options": ["S", "M", "L", "XL"],
+      "material": "锦纶 + 氨纶"
+    },
+    "sales_metrics": {
+      "monthly_sales": 862,
+      "return_rate": 0.04,
+      "rating": 4.8
+    }
+  },
+  {
+    "product_id": "SKU2001",
+    "product_name": "蓝牙降噪耳机",
+    "category": "数码",
+    "brand": "NovaSound",
+    "price": 499.0,
+    "status": "缺货",
+    "available_stock": 0,
+    "locked_stock": 8,
+    "safety_stock": 15,
+    "warehouse": "杭州数码仓",
+    "restock_eta": "2026-04-28",
+    "specs": {
+      "color_options": ["曜石黑", "云雾白"],
+      "version": "蓝牙 5.4",
+      "battery_life": "36 小时"
+    },
+    "sales_metrics": {
+      "monthly_sales": 1260,
+      "return_rate": 0.06,
+      "rating": 4.7
+    }
+  },
+  {
+    "product_id": "SKU3002",
+    "product_name": "便携咖啡机",
+    "category": "家电",
+    "brand": "BrewGo",
+    "price": 899.0,
+    "status": "在售",
+    "available_stock": 6,
+    "locked_stock": 1,
+    "safety_stock": 5,
+    "warehouse": "广州家电仓",
+    "restock_eta": "2026-04-23",
+    "specs": {
+      "color_options": ["珍珠白", "曜石黑"],
+      "voltage": ["220V"],
+      "capacity": "300ml"
+    },
+    "sales_metrics": {
+      "monthly_sales": 214,
+      "return_rate": 0.03,
+      "rating": 4.9
+    }
+  },
+  {
+    "product_id": "SKU4003",
+    "product_name": "家居凉拖鞋",
+    "category": "家居",
+    "brand": "HomeStep",
+    "price": 129.0,
+    "status": "在售",
+    "available_stock": 128,
+    "locked_stock": 12,
+    "safety_stock": 20,
+    "warehouse": "义乌小商品仓",
+    "restock_eta": "2026-04-22",
+    "specs": {
+      "color_options": ["樱花粉", "雾霾蓝", "米杏色"],
+      "size_options": ["36-37", "38-39", "40-41"],
+      "material": "EVA"
+    },
+    "sales_metrics": {
+      "monthly_sales": 1740,
+      "return_rate": 0.02,
+      "rating": 4.6
+    }
+  }
+]

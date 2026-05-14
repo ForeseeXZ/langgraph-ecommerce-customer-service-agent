@@ -1,16 +1,18 @@
-from assistant_stream import create_run, RunController
+import json
+from typing import Any, List, Literal, Optional, Union
+
+from assistant_stream import RunController, create_run
 from assistant_stream.serialization import DataStreamResponse
-from langchain_core.messages import (
-    HumanMessage,
-    AIMessageChunk,
-    AIMessage,
-    ToolMessage,
-    SystemMessage,
-    BaseMessage,
-)
 from fastapi import FastAPI
+from langchain_core.messages import (
+    AIMessage,
+    AIMessageChunk,
+    BaseMessage,
+    HumanMessage,
+    SystemMessage,
+    ToolMessage,
+)
 from pydantic import BaseModel
-from typing import List, Literal, Union, Optional, Any
 
 
 class LanguageModelTextPart(BaseModel):
@@ -148,6 +150,15 @@ class ChatRequest(BaseModel):
 
 
 def add_langgraph_route(app: FastAPI, graph, path: str):
+    def parse_tool_result(result: Any) -> Any:
+        if not isinstance(result, str):
+            return result
+
+        try:
+            return json.loads(result)
+        except json.JSONDecodeError:
+            return result
+
     async def chat_completions(request: ChatRequest):
         inputs = convert_to_langchain_messages(request.messages)
 
@@ -167,7 +178,7 @@ def add_langgraph_route(app: FastAPI, graph, path: str):
             ):
                 if isinstance(msg, ToolMessage):
                     tool_controller = tool_calls[msg.tool_call_id]
-                    tool_controller.set_result(msg.content)
+                    tool_controller.set_result(parse_tool_result(msg.content))
 
                 if isinstance(msg, AIMessageChunk) or isinstance(msg, AIMessage):
                     if msg.content:

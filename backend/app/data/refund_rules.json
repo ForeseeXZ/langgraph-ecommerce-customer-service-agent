@@ -1,0 +1,61 @@
+[
+  {
+    "rule_id": "RR001",
+    "category": "通用",
+    "issue_type": "七天无理由",
+    "rule_summary": "商品签收后 7 天内，在不影响二次销售的前提下支持无理由退款。",
+    "eligible_order_status": ["已签收", "退款申请中"],
+    "conditions": [
+      "商品外包装、吊牌、配件完整",
+      "未使用、未损坏、不影响二次销售",
+      "特殊定制商品、生鲜和虚拟商品除外"
+    ],
+    "required_evidence": ["订单号", "商品照片"],
+    "processing_time": "审核通过后 1-3 个工作日原路退款",
+    "refund_scope": "商品实付金额，不含已使用的运费券补贴"
+  },
+  {
+    "rule_id": "RR002",
+    "category": "数码",
+    "issue_type": "质量问题",
+    "rule_summary": "签收后 15 天内如存在非人为质量问题，可申请退货退款或换货。",
+    "eligible_order_status": ["已签收", "售后处理中"],
+    "conditions": [
+      "需提供问题描述以及照片或视频",
+      "经售后初审后创建工单处理",
+      "人为损坏、进液、私拆不在该规则范围内"
+    ],
+    "required_evidence": ["订单号", "故障视频", "商品序列号"],
+    "processing_time": "审核通过后 3-5 个工作日完成处理",
+    "refund_scope": "支持退货退款或同款换货"
+  },
+  {
+    "rule_id": "RR003",
+    "category": "服饰",
+    "issue_type": "尺码不合适",
+    "rule_summary": "支持在签收后 7 天内申请换码或退货退款。",
+    "eligible_order_status": ["已签收"],
+    "conditions": [
+      "吊牌未拆，商品未洗涤",
+      "不影响二次销售",
+      "换码需以仓库库存为准"
+    ],
+    "required_evidence": ["订单号", "商品吊牌照片"],
+    "processing_time": "仓库签收后 1-3 个工作日处理",
+    "refund_scope": "支持换码或退货退款"
+  },
+  {
+    "rule_id": "RR004",
+    "category": "家电",
+    "issue_type": "未发货退款",
+    "rule_summary": "订单未出库前支持直接申请退款，原路退回。",
+    "eligible_order_status": ["待发货", "备货中"],
+    "conditions": [
+      "订单未进入物流揽收状态",
+      "若已开具发票，需同步撤票"
+    ],
+    "required_evidence": ["订单号"],
+    "processing_time": "申请通过后 1-2 个工作日退款",
+    "refund_scope": "订单实付金额全额退款"
+  }
+]

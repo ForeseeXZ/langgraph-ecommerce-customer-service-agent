@@ -1,15 +1,43 @@
-from langchain_openai import ChatOpenAI
-from langgraph.graph import StateGraph, END
-from langgraph.prebuilt import ToolNode
+import os
+
+from dotenv import load_dotenv
 from langchain_core.messages import SystemMessage
-from langgraph.errors import NodeInterrupt
 from langchain_core.tools import BaseTool
+from langchain_openai import ChatOpenAI
+from langgraph.errors import NodeInterrupt
+from langgraph.graph import END, StateGraph
+from langgraph.prebuilt import ToolNode
 from pydantic import BaseModel
-from .tools import tools
+
 from .state import AgentState
+from .tools import tools
+
+load_dotenv()
+
+DEFAULT_SYSTEM_PROMPT = """
+你是一名中文电商售后智能客服，服务风格要专业、简洁、礼貌。
+
+你的职责：
+1. 优先理解用户的售后诉求，例如物流进度、库存补货、退款规则、售后工单。
+2. 只要问题涉及订单、库存、退款规则或工单处理，优先调用工具，不要编造业务数据。
+3. 工具返回后，先用中文总结关键信息，再给出下一步建议。
+4. 如果信息不足，明确告诉用户还需要什么，例如订单号、商品编号、联系方式后四位。
+5. 回答以中文为主，不输出无关的英文解释。
+
+你是一个课程作业演示系统，不需要承诺真实发货、真实退款或真实人工回访，只说明“当前演示数据/模拟结果”即可。
+""".strip()
 
 
-model = ChatOpenAI()
+def create_model() -> ChatOpenAI:
+    return ChatOpenAI(
+        model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        api_key=os.getenv("OPENAI_API_KEY", "demo-key"),
+        base_url=os.getenv("OPENAI_BASE_URL"),
+        temperature=float(os.getenv("OPENAI_TEMPERATURE", "0.2")),
+    )
+
+
+model = create_model()
 
 
 def should_continue(state):
@@ -58,7 +86,7 @@ def get_tools(config):
 
 
 async def call_model(state, config):
-    system = config["configurable"]["system"]
+    system = config["configurable"].get("system") or DEFAULT_SYSTEM_PROMPT
 
     messages = [SystemMessage(content=system)] + state["messages"]
     model_with_tools = model.bind_tools(get_tool_defs(config))

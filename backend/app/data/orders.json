@@ -1,0 +1,184 @@
+[
+  {
+    "order_id": "SO20260418001",
+    "customer": {
+      "customer_id": "C20260001",
+      "customer_name": "张敏",
+      "phone_last4": "1024",
+      "member_level": "银卡会员"
+    },
+    "order_status": "运输中",
+    "after_sales_status": "可申请售后",
+    "payment": {
+      "payment_status": "已支付",
+      "payment_method": "支付宝",
+      "paid_amount": 199.0,
+      "coupon_amount": 20.0,
+      "shipping_fee": 0.0,
+      "order_total": 219.0
+    },
+    "delivery": {
+      "shipping_company": "顺丰速运",
+      "tracking_no": "SF1234567890",
+      "warehouse": "上海服饰一仓",
+      "delivery_status": "派送中",
+      "estimated_delivery": "2026-04-22",
+      "shipping_address": "上海市浦东新区金科路 88 号"
+    },
+    "items": [
+      {
+        "product_id": "SKU1001",
+        "sku_id": "SKU1001-BEIGE-M",
+        "product_name": "轻薄防晒外套",
+        "variant": "米白色 M",
+        "unit_price": 199.0,
+        "quantity": 1,
+        "refund_eligible": true
+      }
+    ],
+    "timeline": [
+      "2026-04-18 10:23 下单成功",
+      "2026-04-18 10:25 支付完成",
+      "2026-04-19 08:40 仓库出库",
+      "2026-04-20 14:15 运输中"
+    ],
+    "created_at": "2026-04-18 10:23:00"
+  },
+  {
+    "order_id": "SO20260417008",
+    "customer": {
+      "customer_id": "C20260002",
+      "customer_name": "李婷",
+      "phone_last4": "5566",
+      "member_level": "普通会员"
+    },
+    "order_status": "已签收",
+    "after_sales_status": "处理中",
+    "payment": {
+      "payment_status": "已支付",
+      "payment_method": "微信支付",
+      "paid_amount": 459.0,
+      "coupon_amount": 40.0,
+      "shipping_fee": 0.0,
+      "order_total": 499.0
+    },
+    "delivery": {
+      "shipping_company": "京东物流",
+      "tracking_no": "JD9080706050",
+      "warehouse": "杭州数码仓",
+      "delivery_status": "已签收",
+      "estimated_delivery": "2026-04-19",
+      "shipping_address": "杭州市西湖区文三路 188 号"
+    },
+    "items": [
+      {
+        "product_id": "SKU2001",
+        "sku_id": "SKU2001-BLACK-STD",
+        "product_name": "蓝牙降噪耳机",
+        "variant": "曜石黑 标准版",
+        "unit_price": 499.0,
+        "quantity": 1,
+        "refund_eligible": true
+      }
+    ],
+    "timeline": [
+      "2026-04-17 16:08 下单成功",
+      "2026-04-17 16:10 支付完成",
+      "2026-04-18 09:30 仓库出库",
+      "2026-04-19 13:20 用户签收",
+      "2026-04-20 11:00 用户发起质量问题咨询"
+    ],
+    "created_at": "2026-04-17 16:08:00"
+  },
+  {
+    "order_id": "SO20260416015",
+    "customer": {
+      "customer_id": "C20260003",
+      "customer_name": "王浩",
+      "phone_last4": "8899",
+      "member_level": "金卡会员"
+    },
+    "order_status": "待发货",
+    "after_sales_status": "未发起",
+    "payment": {
+      "payment_status": "已支付",
+      "payment_method": "银行卡",
+      "paid_amount": 899.0,
+      "coupon_amount": 50.0,
+      "shipping_fee": 12.0,
+      "order_total": 961.0
+    },
+    "delivery": {
+      "shipping_company": "",
+      "tracking_no": "",
+      "warehouse": "广州家电仓",
+      "delivery_status": "待出库",
+      "estimated_delivery": "2026-04-24",
+      "shipping_address": "广州市天河区黄埔大道 288 号"
+    },
+    "items": [
+      {
+        "product_id": "SKU3002",
+        "sku_id": "SKU3002-WHITE-220V",
+        "product_name": "便携咖啡机",
+        "variant": "珍珠白 220V",
+        "unit_price": 899.0,
+        "quantity": 1,
+        "refund_eligible": false
+      }
+    ],
+    "timeline": [
+      "2026-04-16 09:40 下单成功",
+      "2026-04-16 09:43 支付完成",
+      "2026-04-16 10:15 订单进入备货"
+    ],
+    "created_at": "2026-04-16 09:40:00"
+  },
+  {
+    "order_id": "SO20260415021",
+    "customer": {
+      "customer_id": "C20260004",
+      "customer_name": "赵琳",
+      "phone_last4": "3344",
+      "member_level": "普通会员"
+    },
+    "order_status": "退款成功",
+    "after_sales_status": "已完结",
+    "payment": {
+      "payment_status": "已退款",
+      "payment_method": "支付宝",
+      "paid_amount": 129.0,
+      "coupon_amount": 10.0,
+      "shipping_fee": 6.0,
+      "order_total": 145.0
+    },
+    "delivery": {
+      "shipping_company": "中通快递",
+      "tracking_no": "ZT7788990011",
+      "warehouse": "义乌小商品仓",
+      "delivery_status": "退货已签收",
+      "estimated_delivery": "2026-04-17",
+      "shipping_address": "南京市鼓楼区中央路 56 号"
+    },
+    "items": [
+      {
+        "product_id": "SKU4003",
+        "sku_id": "SKU4003-PINK-38",
+        "product_name": "家居凉拖鞋",
+        "variant": "樱花粉 38-39",
+        "unit_price": 129.0,
+        "quantity": 1,
+        "refund_eligible": false
+      }
+    ],
+    "timeline": [
+      "2026-04-15 12:06 下单成功",
+      "2026-04-15 12:10 支付完成",
+      "2026-04-16 09:10 仓库出库",
+      "2026-04-17 17:30 用户签收",
+      "2026-04-18 10:05 发起七天无理由退款",
+      "2026-04-20 15:20 原路退款成功"
+    ],
+    "created_at": "2026-04-15 12:06:00"
+  }
+]

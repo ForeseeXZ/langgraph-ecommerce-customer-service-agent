@@ -1,0 +1,10 @@
+This project is adapted from:
+
+https://github.com/hminle/langserve-assistant-ui
+
+The upstream project is licensed under the MIT License. The original copyright
+notice and MIT License text are retained in LICENSE.
+
+This repository modifies the original project for a Chinese e-commerce
+after-sales customer service demo, including localized frontend copy, mock
+business data, LangGraph tools, and OpenAI-compatible model configuration.

@@ -1,0 +1,15 @@
+[
+  {
+    "ticket_id": "AS20260420110000",
+    "order_id": "SO20260417008",
+    "issue_type": "质量问题",
+    "description": "耳机右耳有明显杂音，降噪模式下更明显。",
+    "contact_phone": "13800005566",
+    "status": "处理中",
+    "priority": "高",
+    "assigned_to": "售后质检组",
+    "created_at": "2026-04-20 11:00:00",
+    "sla": "24 小时内首次响应",
+    "latest_progress": "已通知用户补充故障视频"
+  }
+]
