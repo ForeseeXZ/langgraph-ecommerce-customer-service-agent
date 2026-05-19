@@ -13,7 +13,7 @@ export function ComposerBar() {
         />
         <div className="mt-2 flex flex-col gap-3 px-2 pb-1 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs leading-5 text-slate-500">
-            工具优先查询，政策解释来自 RAG 知识库。
+            AI 助手将根据订单事实与 RAG 政策知识库为您解答。
           </p>
           <ComposerPrimitive.Send className="inline-flex h-9 items-center justify-center rounded-lg bg-slate-950 px-4 text-sm font-medium text-cyan-100 shadow-sm transition hover:bg-cyan-800 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-white">
             发送

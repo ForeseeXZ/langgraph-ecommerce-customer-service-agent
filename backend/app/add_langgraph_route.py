@@ -177,7 +177,16 @@ def add_langgraph_route(app: FastAPI, graph, path: str):
                 stream_mode="messages",
             ):
                 if isinstance(msg, ToolMessage):
-                    tool_controller = tool_calls[msg.tool_call_id]
+                    tool_controller = tool_calls.get(msg.tool_call_id)
+                    if tool_controller is None:
+                        unmatched = [
+                            controller
+                            for controller in tool_calls_by_idx.values()
+                            if controller not in tool_calls.values()
+                        ]
+                        if not unmatched:
+                            continue
+                        tool_controller = unmatched[0]
                     tool_controller.set_result(parse_tool_result(msg.content))
 
                 if isinstance(msg, AIMessageChunk) or isinstance(msg, AIMessage):
@@ -190,9 +199,12 @@ def add_langgraph_route(app: FastAPI, graph, path: str):
                                 chunk["name"], chunk["id"]
                             )
                             tool_calls_by_idx[chunk["index"]] = tool_controller
-                            tool_calls[chunk["id"]] = tool_controller
+                            if chunk["id"]:
+                                tool_calls[chunk["id"]] = tool_controller
                         else:
                             tool_controller = tool_calls_by_idx[chunk["index"]]
+                            if chunk["id"]:
+                                tool_calls[chunk["id"]] = tool_controller
 
                         tool_controller.append_args_text(chunk["args"])
 

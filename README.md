@@ -1,4 +1,4 @@
-# 淘京拼购物智能售后平台
+# 并夕夕购物智能售后平台
 
 这是一个面向中文电商售后场景的 AI Agent 课程作业 Demo。项目使用 Next.js + assistant-ui 构建前端工作台，FastAPI + LangGraph 编排后端 Agent，并结合 SQLite 演示数据库与本地 RAG 知识库，模拟“订单事实查询、售后政策解释、工单创建与进度跟踪”的完整流程。
 

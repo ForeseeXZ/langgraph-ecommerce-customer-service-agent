@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "淘京拼购物智能售后平台",
+  title: "并夕夕购物智能售后平台",
   description: "基于 Next.js、assistant-ui、FastAPI、LangGraph、SQLite 和 RAG 的中文电商售后 Agent 演示系统",
 };
 

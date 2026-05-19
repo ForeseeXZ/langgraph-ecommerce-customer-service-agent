@@ -1,7 +1,12 @@
 "use client";
 
 import { useAssistantToolUI } from "@assistant-ui/react";
+import type { ReactNode } from "react";
 
+import { InventoryTable } from "@/components/assistant/InventoryTable";
+import { OrderCard } from "@/components/assistant/OrderCard";
+import { RefundCard } from "@/components/assistant/RefundCard";
+import { TicketCard } from "@/components/assistant/TicketCard";
 import { ToolResultCard } from "@/components/assistant/ToolResultCard";
 import type { ToolCardConfig } from "@/components/assistant/types";
 import {
@@ -9,6 +14,8 @@ import {
   firstRestockEta,
   getPath,
   inventoryTotal,
+  isRecord,
+  parseToolResult,
   skuSpec,
   yesNo,
 } from "@/components/assistant/toolResultUtils";
@@ -134,12 +141,34 @@ const TOOL_CARDS: ToolCardConfig[] = [
   },
 ];
 
+const SPECIALIZED_RENDERERS: Partial<Record<string, (data: unknown) => ReactNode>> = {
+  query_order_status: (data) => <OrderCard data={data} />,
+  query_product_inventory: (data) => <InventoryTable data={data} />,
+  evaluate_refund_eligibility: (data) => <RefundCard data={data} />,
+  query_after_sales_ticket: (data) => <TicketCard data={data} />,
+  create_after_sales_ticket: (data) => <TicketCard data={data} />,
+  query_customer_tickets: (data) => <TicketCard data={data} />,
+  query_shipment_tracking: (data) => (
+    <OrderCard data={{ shipment: data, shipment_events: getPath(data, "events") }} />
+  ),
+};
+
 export function ToolUIs() {
   return (
     <>
-      {TOOL_CARDS.map((config) => (
-        <ToolRegistration key={config.toolName} config={config} />
-      ))}
+      {TOOL_CARDS.map((config) => {
+        const specializedRenderer = SPECIALIZED_RENDERERS[config.toolName];
+
+        return specializedRenderer ? (
+          <SpecializedToolRegistration
+            key={config.toolName}
+            config={config}
+            renderCard={specializedRenderer}
+          />
+        ) : (
+          <ToolRegistration key={config.toolName} config={config} />
+        );
+      })}
     </>
   );
 }
@@ -153,4 +182,60 @@ function ToolRegistration({ config }: { config: ToolCardConfig }) {
   });
 
   return null;
+}
+
+function SpecializedToolRegistration({
+  config,
+  renderCard,
+}: {
+  config: ToolCardConfig;
+  renderCard: (data: unknown) => ReactNode;
+}) {
+  useAssistantToolUI({
+    toolName: config.toolName,
+    render: ({ result }) => {
+      const payload = parseToolResult(result);
+      const data = payload.data;
+
+      if (!canRenderSpecialized(config.toolName, payload.status, data)) {
+        return <ToolResultCard title={config.title} result={result} fields={config.fields} />;
+      }
+
+      return renderCard(data);
+    },
+  });
+
+  return null;
+}
+
+function canRenderSpecialized(toolName: string, status: string | undefined, data: unknown): boolean {
+  if (status && status !== "success") return false;
+  if (!isRecord(data)) return false;
+
+  switch (toolName) {
+    case "query_order_status":
+      return isRecord(data.order) || isRecord(data.shipment);
+    case "query_shipment_tracking":
+      return Boolean(data.tracking_no || data.shipping_company || hasArray(data.events));
+    case "query_product_inventory":
+      return hasArray(data.products);
+    case "evaluate_refund_eligibility":
+      return "eligible" in data || Boolean(data.reason || data.suggested_next_action);
+    case "query_after_sales_ticket":
+    case "create_after_sales_ticket":
+    case "query_customer_tickets":
+      return hasArray(data.tickets) || isRecord(data.ticket);
+    default:
+      return hasMeaningfulData(data);
+  }
+}
+
+function hasArray(value: unknown): value is unknown[] {
+  return Array.isArray(value) && value.length > 0;
+}
+
+function hasMeaningfulData(data: unknown): boolean {
+  if (Array.isArray(data)) return data.length > 0;
+  if (isRecord(data)) return Object.keys(data).length > 0;
+  return data !== undefined && data !== null && data !== "";
 }

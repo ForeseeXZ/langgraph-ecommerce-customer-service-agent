@@ -36,7 +36,7 @@ function WorkbenchSidebar() {
           </div>
           <div>
             <div className="text-xs font-semibold uppercase text-cyan-200">After-Sales Platform</div>
-            <h1 className="mt-1 text-xl font-semibold">淘京拼购物智能售后平台</h1>
+            <h1 className="mt-1 text-xl font-semibold">并夕夕购物智能售后平台</h1>
           </div>
         </div>
         <p className="mt-4 text-sm leading-6 text-slate-300">
